@@ -1,6 +1,22 @@
 #include "to_tree.h"
 #include <QStack>
 
+tree* parse_tree(QString postfix_string, QVector<error> & array_of_errors) {
+    // разделение строки польской записи на отдельные элементы (переменные и операции в одном массиве)
+    QVector<QString> parsed_postfix_string = convert_postfix_string_to_vector(postfix_string);
+
+    // переменная, которая показывает, нашлась ли хотя бы одна ошибка в строке с польской записью
+    bool is_possible_to_proceed_tree_formation = check_parsed_posfix_string(parsed_postfix_string, array_of_errors);
+
+    // проверка, возможно ли сформировать дерево на текущий этап выполнения функции
+    if (!is_possible_to_proceed_tree_formation) {
+
+        return nullptr;
+    }
+
+    return form_tree(parsed_postfix_string, array_of_errors);
+}
+
 QVector<QString> convert_postfix_string_to_vector(QString string) {
 
     QStringList tmp_s = string.split(" ");
