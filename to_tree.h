@@ -20,4 +20,6 @@ typedef struct error {
 
 tree* parse_tree(QString postfix_string, QVector<error> & array_of_errors);
 
+QVector<QString> convert_postfix_string_to_vector(QString string);
+
 #endif // TO_TREE_H
