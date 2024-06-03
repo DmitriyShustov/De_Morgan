@@ -22,4 +22,18 @@ tree* parse_tree(QString postfix_string, QVector<error> & array_of_errors);
 
 QVector<QString> convert_postfix_string_to_vector(QString string);
 
+error create_error(type_of_error type, QString message);
+
+bool is_string_operation_or_variable(QString string, QVector<error> & array_of_errors);
+
+bool check_supported_variables_in_string(QString string, QVector<error> & array_of_errors);
+
+bool check_parsed_postfix_string_length(QVector<QString> parsed_postfix_string, QVector<error> & array_of_errors);
+
+bool check_parsed_posfix_string_contain_operation(QVector<QString> parsed_postfix_string, QVector<error> & array_of_errors);
+
+bool is_string_operation(QString string);
+
+
+
 #endif // TO_TREE_H
