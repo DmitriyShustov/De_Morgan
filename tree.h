@@ -45,4 +45,9 @@ enum transformation {
     FORALL_OPENING // раскрытие квантора всеобщности
 };
 
+// выделить память под tnode и заполнить поля структуры tnode указанными значениями
+tnode* create_node(QString value, type_node type, int number_of_node);
+
+type_node convert_string_to_type_node(QString string);
+
 #endif // TREE_H

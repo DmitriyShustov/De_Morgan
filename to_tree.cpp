@@ -1,4 +1,5 @@
 #include "to_tree.h"
+#include <QStack>
 
 QVector<QString> convert_postfix_string_to_vector(QString string) {
 
