@@ -2,7 +2,6 @@
 #include "tree.h"
 #include "to_tree.h"
 
-
 int main()
 {
     QString str = "y x y  & ! forall ! ";

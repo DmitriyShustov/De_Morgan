@@ -50,4 +50,12 @@ tnode* create_node(QString value, type_node type, int number_of_node);
 
 type_node convert_string_to_type_node(QString string);
 
+// добавить узел в дерево после текущего узла с указанием стороны(0 - влево, 1 - вправо)
+void add_node(tree* parent, tnode* node, QString value, type_node type, int direction);
+
+// удалить указанный узел из дерева
+void delete_node(tree* parent, tnode* node);
+
+
+
 #endif // TREE_H

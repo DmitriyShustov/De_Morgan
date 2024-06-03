@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef TO_TREE_H
 #define TO_TREE_H
 
