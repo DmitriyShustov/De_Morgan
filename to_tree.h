@@ -22,6 +22,8 @@ tree* parse_tree(QString postfix_string, QVector<error> & array_of_errors);
 
 QVector<QString> convert_postfix_string_to_vector(QString string);
 
+bool check_parsed_posfix_string(QVector<QString> parsed_postfix_string, QVector<error> & array_of_errors);
+
 error create_error(type_of_error type, QString message);
 
 bool is_string_operation_or_variable(QString string, QVector<error> & array_of_errors);

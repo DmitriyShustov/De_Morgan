@@ -16,6 +16,25 @@ QVector<QString> convert_postfix_string_to_vector(QString string) {
     //    return string.split(" ", Qt::SkipEmptyParts);
 }
 
+bool check_parsed_posfix_string(QVector<QString> parsed_postfix_string, QVector<error> & array_of_errors) {
+    // переменная, которая показывает, нашлась ли хотя бы одна ошибка в строке с польской записью
+    bool is_parsed_string_correct = true;
+
+    // проверка, соответствуют ли все элементы польской записи заданным требованиям
+    for (int i = 0; i < parsed_postfix_string.length(); ++i) {
+        // если встретилась ошибка в текущем рассматриваемом элементе строки, то указать это
+        is_parsed_string_correct = (is_string_operation_or_variable(parsed_postfix_string[i], array_of_errors)) ? is_parsed_string_correct : false;
+    }
+
+    // проверка количества элементов в строке в польской записи (проверка количества узлов в дереве)
+    is_parsed_string_correct = (check_parsed_postfix_string_length(parsed_postfix_string, array_of_errors)) ? is_parsed_string_correct : false;
+
+    // проверка, содержит ли польская запись хотя бы одну поддерживаемую логическую операцию
+    is_parsed_string_correct = (check_parsed_posfix_string_contain_operation(parsed_postfix_string, array_of_errors)) ? is_parsed_string_correct : false;
+
+    return is_parsed_string_correct;
+}
+
 error create_error(type_of_error type, QString message) {
     error new_error;
     new_error.error_type = type;
