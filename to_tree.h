@@ -40,5 +40,6 @@ void proceed_unary_operation(QStack<tnode*> & stack, tnode* new_node, QVector<er
 
 void proceed_binary_operation(QStack<tnode*> & stack, tnode* new_node, QVector<error> & array_of_errors);
 
+tree* form_tree(QVector<QString> parsed_postfix_string, QVector<error> & array_of_errors);
 
 #endif // TO_TREE_H

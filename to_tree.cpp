@@ -156,3 +156,47 @@ void proceed_binary_operation(QStack<tnode*> & stack, tnode* new_node, QVector<e
 
     stack.push(new_node);
 }
+
+tree* form_tree(QVector<QString> parsed_postfix_string, QVector<error> & array_of_errors) {
+    tree* parent = new tree[1];
+    QStack<tnode*> stack;
+
+    for (int i = 0; i < parsed_postfix_string.length(); ++i) {
+        if (!is_string_operation(parsed_postfix_string[i])) {
+            tnode* new_node = create_node(parsed_postfix_string[i], VAR, parent->counter_of_nodes);
+            parent->counter_of_nodes++;
+
+            stack.push(new_node);
+        }
+        else if (parsed_postfix_string[i] == "!") {
+            tnode* new_node = create_node(parsed_postfix_string[i], NOT, parent->counter_of_nodes);
+            parent->counter_of_nodes++;
+
+            proceed_unary_operation(stack, new_node, array_of_errors);
+        }
+        else {
+            tnode* new_node = create_node(parsed_postfix_string[i], convert_string_to_type_node(parsed_postfix_string[i]), parent->counter_of_nodes);
+            parent->counter_of_nodes++;
+
+            proceed_binary_operation(stack, new_node, array_of_errors);
+        }
+    }
+
+    if (array_of_errors.length() > 0) {
+
+        return nullptr;
+    }
+    else {
+
+        parent->top = stack.pop();
+        if (!stack.isEmpty()) {
+            array_of_errors.append(create_error(OPERATION_HAS_TOO_MANY_OPERANDS, "Слишком много операндов для логической операции " + parent->top->value));
+
+            return nullptr;
+        }
+
+        // parent->amount_of_nodes = parent->counter_of_nodes;
+
+        return parent;
+    }
+}
