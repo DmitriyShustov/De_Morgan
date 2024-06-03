@@ -36,6 +36,9 @@ bool check_parsed_posfix_string_contain_operation(QVector<QString> parsed_postfi
 
 bool is_string_operation(QString string);
 
+void proceed_unary_operation(QStack<tnode*> & stack, tnode* new_node, QVector<error> & array_of_errors);
+
+void proceed_binary_operation(QStack<tnode*> & stack, tnode* new_node, QVector<error> & array_of_errors);
 
 
 #endif // TO_TREE_H

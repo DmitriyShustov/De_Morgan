@@ -115,3 +115,44 @@ bool is_string_operation(QString string) {
 
     return SUPPORTED_OPERATIONS.contains(string);
 }
+
+void proceed_unary_operation(QStack<tnode*> & stack, tnode* new_node, QVector<error> & array_of_errors) {
+
+    if (stack.isEmpty()) {
+        array_of_errors.append(create_error(OPERATION_HAS_TOO_FEW_OPERANDS, "Для логической операции ! должен быть указан 1 элемент"));
+
+        return;
+    }
+
+    tnode* popped_element = stack.pop();
+
+    new_node->left = popped_element;
+    popped_element->prev = new_node;
+
+    stack.push(new_node);
+}
+
+void proceed_binary_operation(QStack<tnode*> & stack, tnode* new_node, QVector<error> & array_of_errors) {
+    if (stack.length() < 2) {
+        array_of_errors.append(create_error(OPERATION_HAS_TOO_FEW_OPERANDS, "Для логической операции " + new_node->value + " должны быть указаны 2 элемента"));
+
+        return;
+    }
+
+    tnode* first_poped_element = stack.pop();
+    tnode* second_poped_element = stack.pop();
+
+    if ( ((new_node->type == EXIST) or (new_node->type == FORALL)) and (second_poped_element->type != VAR) ) {
+        array_of_errors.append(create_error(QUANTOR_HAS_NO_VARIABLE, "Для кватора " + new_node->value + " первым операндом должна быть указана только переменная"));
+
+        return;
+    }
+
+    new_node->right = first_poped_element;
+    first_poped_element->prev = new_node;
+
+    new_node->left = second_poped_element;
+    second_poped_element->prev = new_node;
+
+    stack.push(new_node);
+}
