@@ -4,6 +4,7 @@
 #define TO_TREE_H
 
 #include "tree.h"
+#include <sstream>
 
 enum type_of_error {
     NOT_SUPPORTED_VARIABLE,  // неподдерживаемые символы в переменных

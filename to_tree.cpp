@@ -1,5 +1,6 @@
 #include "to_tree.h"
 #include <QStack>
+#include <QStringList>
 
 tree* parse_tree(QString postfix_string, QVector<error> & array_of_errors) {
     // разделение строки польской записи на отдельные элементы (переменные и операции в одном массиве)
