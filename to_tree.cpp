@@ -82,13 +82,13 @@ bool check_supported_variables_in_string(QString string, QVector<error> & array_
     bool return_value = true;
 
     if (!string.isLower()) {
-        array_of_errors.append(create_error(NOT_SUPPORTED_VARIABLE, "Подпоследовательность " + string + " содержит не только строчные буквы"));
+        array_of_errors.append(create_error(NOT_SUPPORTED_VARIABLE, "Subsequence " + string + " contains not only lowercase letters"));
 
         return_value = false;
     }
     for (int i = 0; i < string.length(); ++i) {
         if ( (string.at(i).unicode() > 255) or (!string.at(i).isLetter())) {
-            array_of_errors.append(create_error(NOT_SUPPORTED_VARIABLE, "Подпоследовательность " + string + " содержит неподдерживаемый символ: " + string.at(i)));
+            array_of_errors.append(create_error(NOT_SUPPORTED_VARIABLE, "Subsequence " + string + " contains unsupported symbol: " + string.at(i)));
 
             return_value = false;
         }
@@ -99,7 +99,7 @@ bool check_supported_variables_in_string(QString string, QVector<error> & array_
 
 bool check_parsed_postfix_string_length(QVector<QString> parsed_postfix_string, QVector<error> & array_of_errors) {
     if (parsed_postfix_string.length() > NODE_LIMIT_IN_TREE) {
-        array_of_errors.append(create_error(TREE_HAS_TO_MANY_NODES, "Количество узлов в дереве превышено 100. Текущее количество узлов: " + QString::number(parsed_postfix_string.length())));
+        array_of_errors.append(create_error(TREE_HAS_TO_MANY_NODES, "Number of nodes in tree has exceeded 100. Current number of nodes: " + QString::number(parsed_postfix_string.length())));
 
         return false;
     }
@@ -119,7 +119,7 @@ bool check_parsed_posfix_string_contain_operation(QVector<QString> parsed_postfi
     }
 
     if (parsed_postfix_string.length() > 1 and is_contain_operation == false) {
-        array_of_errors.append(create_error(NO_LOGICAL_OPEARTION, "Отсутствует логическая операция в выражении"));
+        array_of_errors.append(create_error(NO_LOGICAL_OPEARTION, "There is no logical operation in the expression"));
 
         return is_contain_operation;
     }
@@ -137,7 +137,7 @@ bool is_string_operation(QString string) {
 void proceed_unary_operation(QStack<tnode*> & stack, tnode* new_node, QVector<error> & array_of_errors) {
 
     if (stack.isEmpty()) {
-        array_of_errors.append(create_error(OPERATION_HAS_TOO_FEW_OPERANDS, "Для логической операции ! должен быть указан 1 элемент"));
+        array_of_errors.append(create_error(OPERATION_HAS_TOO_FEW_OPERANDS, "For logical operation ! only 1 element must be specified"));
 
         return;
     }
@@ -152,7 +152,7 @@ void proceed_unary_operation(QStack<tnode*> & stack, tnode* new_node, QVector<er
 
 void proceed_binary_operation(QStack<tnode*> & stack, tnode* new_node, QVector<error> & array_of_errors) {
     if (stack.length() < 2) {
-        array_of_errors.append(create_error(OPERATION_HAS_TOO_FEW_OPERANDS, "Для логической операции " + new_node->value + " должны быть указаны 2 элемента"));
+        array_of_errors.append(create_error(OPERATION_HAS_TOO_FEW_OPERANDS, "For logical operation " + new_node->value + " only 2 elements must be specified"));
 
         return;
     }
@@ -161,7 +161,7 @@ void proceed_binary_operation(QStack<tnode*> & stack, tnode* new_node, QVector<e
     tnode* second_poped_element = stack.pop();
 
     if ( ((new_node->type == EXIST) or (new_node->type == FORALL)) and (second_poped_element->type != VAR) ) {
-        array_of_errors.append(create_error(QUANTOR_HAS_NO_VARIABLE, "Для кватора " + new_node->value + " первым операндом должна быть указана только переменная"));
+        array_of_errors.append(create_error(QUANTOR_HAS_NO_VARIABLE, "For quator " + new_node->value + " only variable must be specified as first operand"));
 
         return;
     }
@@ -208,7 +208,7 @@ tree* form_tree(QVector<QString> parsed_postfix_string, QVector<error> & array_o
 
         parent->top = stack.pop();
         if (!stack.isEmpty()) {
-            array_of_errors.append(create_error(OPERATION_HAS_TOO_MANY_OPERANDS, "Слишком много операндов для логической операции " + parent->top->value));
+            array_of_errors.append(create_error(OPERATION_HAS_TOO_MANY_OPERANDS, "There are too many operands for a logical operation " + parent->top->value));
 
             return nullptr;
         }
