@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
 
     QFile file(argv[1]);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        std::cout << "Не удалось открыть файл для чтения" << std::endl;
+        std::cout << "Не удалось открыть файл для чтения\n" << std::endl;
 
         return 0;
     }
@@ -30,25 +30,24 @@ int main(int argc, char* argv[])
 
     file.close();
 
-    // QString str = "x y ! forall";
     QVector<error> array_of_errors;
 
     tree* tree_root = parse_tree(input_string, array_of_errors);
 
     for (int i = 0; i < array_of_errors.length(); ++i) {
-        qDebug() << array_of_errors[i].error_message;
+        std::cout << array_of_errors[i].error_message.toStdString() << std::endl;
     }
 
     if (array_of_errors.length() == 0) {
         QFile original_file(QString::fromUtf8(argv[2]) + QString("\\original_tree.txt"));
         if (!original_file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            qDebug() << "Не удалось открыть файл для записи";
+            std::cout <<  "Не удалось открыть файл для записи\n" << std::endl;
 
             return 0;
         }
 
         QTextStream out(&original_file);
-        out << convert_tree_to_dot(tree_root) << "\n";
+        out << convert_tree_to_dot(tree_root);
 
         original_file.close();
 
@@ -56,13 +55,13 @@ int main(int argc, char* argv[])
 
         QFile transformed_file(QString::fromUtf8(argv[2]) + QString("\\transformed_tree.txt"));
         if (!transformed_file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            qDebug() << "Не удалось открыть файл для записи";
+            std::cout << "Не удалось открыть файл для записи\n" << std::endl;
 
             return 0;
         }
 
         QTextStream out1(&transformed_file);
-        out1 << convert_tree_to_dot(tree_root) << "\n";
+        out1 << convert_tree_to_dot(tree_root);
 
         transformed_file.close();
     }
