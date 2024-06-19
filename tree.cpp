@@ -268,5 +268,16 @@ void perform_dis_or_con_opening(tree* parent, tnode* node, transformation type){
 
 // выполнить раскрытие квантора существования или квантора всеобщности
 void perform_exist_or_forall_opening(tree* parent, tnode* node, transformation type){
-    ;
+    add_node(parent, node->left, "!", NOT, 1);
+
+    if (type == EXIST_OPENING) {
+        node->left->type = FORALL;
+        node->left->value = "forall";
+    }
+    else {
+        node->left->type = EXIST;
+        node->left->value = "exist";
+    }
+
+    delete_node(parent, node);
 }
