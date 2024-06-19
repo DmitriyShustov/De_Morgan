@@ -5,22 +5,21 @@
 #include "QtDebug"
 #include "QFile"
 #include "QTextStream"
-#include "string"
 
 #include <iostream>
 
 int main(int argc, char* argv[])
 {
-    argc = 3;
-    argv[1] = "E:\\de_morgan_input.txt";
-    argv[2] = "E:";
+    // argc = 3;
+    // argv[1] = "E:\\de_morgan_input.txt";
+    // argv[2] = "E:";
     for (int i = 0; i < argc; ++i) {
         std::cout << argv[i] << std::endl;
     }
 
     QFile file(argv[1]);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        std::cout << "Не удалось открыть файл для чтения\n" << std::endl;
+        std::cout << "The file could not be opened for reading\n" << std::endl;
 
         return 0;
     }
@@ -41,7 +40,7 @@ int main(int argc, char* argv[])
     if (array_of_errors.length() == 0) {
         QFile original_file(QString::fromUtf8(argv[2]) + QString("\\original_tree.txt"));
         if (!original_file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            std::cout <<  "Не удалось открыть файл для записи\n" << std::endl;
+            std::cout << "The file " << QString::fromUtf8(argv[2]).toStdString() << " could not be opened for writing\n" << std::endl;
 
             return 0;
         }
@@ -55,7 +54,7 @@ int main(int argc, char* argv[])
 
         QFile transformed_file(QString::fromUtf8(argv[2]) + QString("\\transformed_tree.txt"));
         if (!transformed_file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            std::cout << "Не удалось открыть файл для записи\n" << std::endl;
+            std::cout << "The file " << QString::fromUtf8(argv[2]).toStdString() << " could not be opened for writing\n" << std::endl;
 
             return 0;
         }
@@ -65,6 +64,8 @@ int main(int argc, char* argv[])
 
         transformed_file.close();
     }
+
+    getchar();
 
     return 0;
 }
