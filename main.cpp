@@ -1,6 +1,7 @@
 #include <QCoreApplication>
 #include "tree.h"
 #include "to_tree.h"
+#include "to_dot.h"
 #include "QtDebug"
 
 #include <iostream>
@@ -14,10 +15,10 @@ QString error_to_str(const error& e) {
 
 int main()
 {
-    std::cout << error_to_str({"123", OPERATION_HAS_TOO_FEW_OPERANDS}).toStdString() << std::endl;
-    return 0;
+    // std::cout << error_to_str({"123", OPERATION_HAS_TOO_FEW_OPERANDS}).toStdString() << std::endl;
+    // return 0;
 
-    QString str = "y x y  & ! forall ! ";
+    QString str = "x y ! forall";
     QVector<error> array_of_errors;
 
     tree* tree_root = parse_tree(str, array_of_errors);
@@ -25,6 +26,8 @@ int main()
     for (int i = 0; i < array_of_errors.length(); ++i) {
         qDebug() << array_of_errors[i].error_message;
     }
+
+    QString dot_string = convert_tree_to_dot(tree_root);
 
     return 0;
 }

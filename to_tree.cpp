@@ -3,6 +3,8 @@
 #include <QStringList>
 
 tree* parse_tree(QString postfix_string, QVector<error> & array_of_errors) {
+    array_of_errors.clear();
+
     // разделение строки польской записи на отдельные элементы (переменные и операции в одном массиве)
     QVector<QString> parsed_postfix_string = convert_postfix_string_to_vector(postfix_string);
 
