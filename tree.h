@@ -56,6 +56,22 @@ void add_node(tree* parent, tnode* node, QString value, type_node type, int dire
 // удалить указанный узел из дерева
 void delete_node(tree* parent, tnode* node);
 
+//обход дерева и раскрытие скобок по всем рассматриваемым законам
+void perform_logical_expression_transformations(tree* parent, tnode* node);
 
+// определить, какой тип преобразования нужно сделать на текущем node'e
+transformation determine_type_of_transformation(tnode* node);
+
+// выполнить преобразование, исходя из типа операции
+void perform_definite_transformation(tree* parent, tnode *node, transformation type);
+
+// выполнить удаление двойного отрицая в дереве
+void remove_double_negatives(tree* parent, tnode* node);
+
+// выполнить раскрытие дизъюнкции или конъюнкциипо закону Де Мограна
+void perform_dis_or_con_opening(tree* parent, tnode* node, transformation type);
+
+// выполнить раскрытие квантора существования или квантора всеобщности
+void perform_exist_or_forall_opening(tree* parent, tnode* node, transformation type);
 
 #endif // TREE_H
