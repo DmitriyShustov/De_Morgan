@@ -244,23 +244,17 @@ void perform_definite_transformation(tree* parent, tnode *node, transformation t
 }
 
 // выполнить удаление двойного отрицая в дереве
-tree* remove_double_negatives(tree* parent, tnode* node){
+void remove_double_negatives(tree* parent, tnode* node){
     delete_node(parent, node->left);
     delete_node(parent, node);
-
-    return parent;
 }
 
 // выполнить раскрытие дизъюнкции или конъюнкциипо закону Де Мограна
-tree* perform_dis_or_con_opening(tree* parent, tnode* node, transformation type){
-
-
-    return parent;
+void perform_dis_or_con_opening(tree* parent, tnode* node, transformation type){
+    ;
 }
 
 // выполнить раскрытие квантора существования или квантора всеобщности
-tree* perform_exist_or_forall_opening(tree* parent, tnode* node, transformation type){
-
-
-    return parent;
+void perform_exist_or_forall_opening(tree* parent, tnode* node, transformation type){
+    ;
 }
