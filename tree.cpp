@@ -251,7 +251,19 @@ void remove_double_negatives(tree* parent, tnode* node){
 
 // выполнить раскрытие дизъюнкции или конъюнкциипо закону Де Мограна
 void perform_dis_or_con_opening(tree* parent, tnode* node, transformation type){
-    ;
+    add_node(parent, node->left, "!", NOT, 0);
+    add_node(parent, node->left, "!", NOT, 1);
+
+    if (type == CON_OPENING) {
+        node->left->type = DIS;
+        node->left->value = "|";
+    }
+    else {
+        node->left->type = CON;
+        node->left->value = "&";
+    }
+
+    delete_node(parent, node);
 }
 
 // выполнить раскрытие квантора существования или квантора всеобщности
