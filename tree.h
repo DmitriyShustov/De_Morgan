@@ -66,12 +66,12 @@ transformation determine_type_of_transformation(tnode* node);
 void perform_definite_transformation(tree* parent, tnode *node, transformation type);
 
 // выполнить удаление двойного отрицая в дереве
-void remove_double_negatives(tree* parent, tnode* node);
+tree* remove_double_negatives(tree* parent, tnode* node);
 
 // выполнить раскрытие дизъюнкции или конъюнкциипо закону Де Мограна
-void perform_dis_or_con_opening(tree* parent, tnode* node, transformation type);
+tree* perform_dis_or_con_opening(tree* parent, tnode* node, transformation type);
 
 // выполнить раскрытие квантора существования или квантора всеобщности
-void perform_exist_or_forall_opening(tree* parent, tnode* node, transformation type);
+tree* perform_exist_or_forall_opening(tree* parent, tnode* node, transformation type);
 
 #endif // TREE_H
