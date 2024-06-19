@@ -245,7 +245,8 @@ void perform_definite_transformation(tree* parent, tnode *node, transformation t
 
 // выполнить удаление двойного отрицая в дереве
 void remove_double_negatives(tree* parent, tnode* node){
-    ;
+    delete_node(parent, node->left);
+    delete_node(parent, node);
 }
 
 // выполнить раскрытие дизъюнкции или конъюнкциипо закону Де Мограна
